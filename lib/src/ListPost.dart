@@ -21,31 +21,11 @@ class _ListPostState extends State<ListPost> {
         title: Text("List Post"),
         backgroundColor: Colors.blueAccent,
       ),
-      body: Center(
+      body: Padding(
+        padding: const EdgeInsets.only(top: 100.0),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            ElevatedButton(
-              onPressed: () async {
-                // Navegar a la pantalla AgregarPost y esperar el resultado
-                final nuevoPost = await Navigator.push(
-  context,
-  MaterialPageRoute(builder: (context) => AgregarPost(nombreUsuario: widget.nombreUsuario)),
-);
-
-                // Agregar el nuevo post a la lista si no es nulo
-                if (nuevoPost != null) {
-                  setState(() {
-                    posts.add(nuevoPost);
-                  });
-                }
-              },
-              style: ElevatedButton.styleFrom(
-                primary: Colors.black,
-              ),
-              child: Text('Agregar Post', style: TextStyle(color: Colors.white)),
-            ),
-            SizedBox(height: 20),
             if (posts.isNotEmpty)
               Expanded(
                 child: ListView.builder(
@@ -53,54 +33,69 @@ class _ListPostState extends State<ListPost> {
                   itemBuilder: (context, index) {
                     return Padding(
                       padding: EdgeInsets.symmetric(horizontal: 30, vertical: 8),
-                      child: Card(
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Expanded(
-                              flex: 3, // Ajuste del flex para dar más espacio a la imagen
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Image.network(
-                                  posts[index].imagen,
-                                  fit: BoxFit.cover,
+                      child: Container(
+                        width: double.infinity,
+                        child: Card(
+                          child: Padding(
+                            padding: const EdgeInsets.all(30.0),
+                            child: Stack(
+                              children: [
+                                // Contenedor para la imagen
+                                Container(
+                                  width: 200, // Ancho fijo para la imagen
+                                  height: 200, // Altura fija para la imagen
+                                  child: Image.network(
+                                    posts[index].imagen,
+                                    fit: BoxFit.cover, // Ajustar la imagen para cubrir el contenedor
+                                  ),
                                 ),
-                              ),
-                            ),
-                            Expanded(
-                              flex: 5,
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      widget.nombreUsuario ?? '',
-                                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                                    ),
-                                    SizedBox(height: 8),
-                                    Text(
-                                      posts[index].descripcion,
-                                      style: TextStyle(fontSize: 16),
-                                    ),
-                                    SizedBox(height: 8),
-                                    Text(
-                                      posts[index].lugar,
-                                      style: TextStyle(fontSize: 14, color: Colors.grey),
-                                    ),
-                                  ],
+                                Positioned(
+                                  top: 0,
+                                  right: 0,
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      // Texto
+                                      Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            widget.nombreUsuario ?? '',
+                                            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                                          ),
+                                          SizedBox(height: 8),
+                                          Text(
+                                            posts[index].descripcion,
+                                            style: TextStyle(fontSize: 16),
+                                          ),
+                                          SizedBox(height: 8),
+                                          Text(
+                                            posts[index].lugar,
+                                            style: TextStyle(fontSize: 14, color: Colors.grey),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                              ),
+                                Positioned(
+                                  top: 150, // Ajusta la posición del botón de eliminar
+                                  right: 160, // Ajusta el botón de eliminar hacia la derecha
+                                  child: ElevatedButton(
+                                    onPressed: () {
+                                      setState(() {
+                                        posts.removeAt(index);
+                                      });
+                                    },
+                                   child: Text('Eliminar', style: TextStyle(color: Colors.white)), // Cambia el color del texto a blanco
+                                    style: ElevatedButton.styleFrom(
+                                      primary: Colors.red, // Cambia el color de fondo a rojo
+                                    ),
+                                    )
+                                ),
+                              ],
                             ),
-                            IconButton(
-                              icon: Icon(Icons.delete),
-                              onPressed: () {
-                                setState(() {
-                                  posts.removeAt(index);
-                                });
-                              },
-                            ),
-                          ],
+                          ),
                         ),
                       ),
                     );
@@ -110,6 +105,27 @@ class _ListPostState extends State<ListPost> {
             else
               Text("No hay datos de publicación disponibles"),
           ],
+        ),
+      ),
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.only(right: 16.0, bottom: 600.0), // Ajusta la posición del botón flotante
+        child: FloatingActionButton(
+          onPressed: () async {
+            // Navegar a la pantalla AgregarPost y esperar el resultado
+            final nuevoPost = await Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => AgregarPost(nombreUsuario: widget.nombreUsuario)),
+            );
+
+            // Agregar el nuevo post a la lista si no es nulo
+            if (nuevoPost != null) {
+              setState(() {
+                posts.add(nuevoPost);
+              });
+            }
+          },
+          child: Icon(Icons.add),
+          backgroundColor: Colors.blueAccent,
         ),
       ),
     );
