@@ -1,12 +1,13 @@
+// LoginScreen
 import 'package:flutter/material.dart';
 import 'package:redsocial/src/ListPost.dart';
 import 'package:redsocial/src/bloc/bloc.dart';
 
 class LoginScreen extends StatelessWidget {
   final List<Map<String, String>> usuarios = [
-    {'email': 'omar@gmail.com', 'password': 'omar1234'},
-    {'email': 'pepe@gmail.com', 'password': 'pepe1234'},
-    {'email': 'fati@gmail.com', 'password': 'fati1234'},
+    {'email': 'omar@gmail.com', 'password': 'omar1234', 'nombre': 'Omar'},
+    {'email': 'pepe@gmail.com', 'password': 'pepe1234', 'nombre': 'Pepe'},
+    {'email': 'fati@gmail.com', 'password': 'fati1234', 'nombre': 'Fati'},
   ];
 
   @override
@@ -29,7 +30,7 @@ class LoginScreen extends StatelessWidget {
         ),
         child: Column(
           children: <Widget>[
-            SizedBox(height: 8), // Ajustamos el espacio arriba del primer texto
+            SizedBox(height: 8),
             Text(
               "Bienvenido",
               textAlign: TextAlign.center,
@@ -39,7 +40,7 @@ class LoginScreen extends StatelessWidget {
                 color: Colors.white,
               ),
             ),
-             SizedBox(height: 100),// Agregamos un spacer para separar los dos textos
+            SizedBox(height: 100),
             Align(
               alignment: Alignment.center,
               child: Text(
@@ -52,7 +53,7 @@ class LoginScreen extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: 8), // Ajustamos el espacio abajo del segundo texto
+            SizedBox(height: 8),
             Container(
               margin: EdgeInsets.symmetric(horizontal: 20.0),
               child: Column(
@@ -70,7 +71,6 @@ class LoginScreen extends StatelessWidget {
         ),
       ),
     );
-    
   }
 
   Widget emailField() {
@@ -129,7 +129,7 @@ class LoginScreen extends StatelessWidget {
 
   Widget submitButton(BuildContext context) {
     return ElevatedButton(
-      child: Text('Entrar' ,style: TextStyle(color: Colors.white),),
+      child: Text('Entrar', style: TextStyle(color: Colors.white),),
       onPressed: () {
         // Verificar si el correo electrónico y la contraseña coinciden con algún usuario
         bool usuarioValido = usuarios.any((usuario) =>
@@ -137,10 +137,21 @@ class LoginScreen extends StatelessWidget {
             usuario['password'] == bloc.currentPassword);
 
         if (usuarioValido) {
-          // Si coinciden, navega a la pantalla de la calculadora
+          // Obtener el nombre del usuario
+          String? nombreUsuario;
+          for (var usuario in usuarios) {
+            if (usuario['email'] == bloc.currentEmail &&
+                usuario['password'] == bloc.currentPassword) {
+              nombreUsuario = usuario['nombre'];
+              break;
+            }
+          }
+
+          // Navegar a la pantalla ListPost
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => ListPost()),
+            MaterialPageRoute(builder: (context) => ListPost(nombreUsuario: nombreUsuario)),
+            
           );
         } else {
           // Si no coinciden, muestra un mensaje de error

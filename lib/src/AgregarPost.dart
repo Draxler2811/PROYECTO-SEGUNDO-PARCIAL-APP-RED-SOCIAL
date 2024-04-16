@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:redsocial/src/PostModel.dart';
 
 class AgregarPost extends StatefulWidget {
+   final String? nombreUsuario;
+
+  const AgregarPost({Key? key, this.nombreUsuario}) : super(key: key);
+
   @override
   _AgregarPostState createState() => _AgregarPostState();
 }
@@ -34,6 +38,13 @@ class _AgregarPostState extends State<AgregarPost> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            SizedBox(height: 20),
+            Text(
+              widget.nombreUsuario ?? '',
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 20),
             TextField(
               controller: descripcionController,
               decoration: InputDecoration(labelText: 'Descripción'),
