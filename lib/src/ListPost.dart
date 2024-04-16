@@ -42,23 +42,51 @@ class _ListPostState extends State<ListPost> {
             ),
             SizedBox(height: 20),
             if (posts.isNotEmpty)
-              Expanded(
-                child: ListView.builder(
-                  itemCount: posts.length,
-                  itemBuilder: (context, index) {
-                    return ListTile(
-                      title: Text(posts[index].descripcion),
-                      subtitle: Text(posts[index].lugar),
-                      leading: Image.network(
-                        posts[index].imagen,
-                        width: 100,
-                        height: 100,
-                        fit: BoxFit.cover,
-                      ),
-                    );
-                  },
+         Expanded(
+  child: ListView.builder(
+    itemCount: posts.length,
+    itemBuilder: (context, index) {
+      return Padding(
+        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        child: Card(
+          child: ListTile(
+            leading: Image.network(
+              posts[index].imagen,
+              width: 100,
+              height: 200,
+              fit: BoxFit.cover,
+            ),
+            title: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  posts[index].descripcion,
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
-              )
+                SizedBox(height: 8),
+                Text(
+                  posts[index].lugar,
+                  style: TextStyle(fontSize: 14, color: Colors.grey),
+                ),
+              ],
+            ),
+            trailing: IconButton(
+              icon: Icon(Icons.delete),
+              onPressed: () {
+                setState(() {
+                  posts.removeAt(index);
+                });
+              },
+            ),
+          ),
+        ),
+      );
+    },
+  ),
+)
+
+
+
             else
               Text("No hay datos de publicación disponibles"),
           ],
