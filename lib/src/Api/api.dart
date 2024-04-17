@@ -25,7 +25,7 @@ class _apiState extends State<api>{
       }
       return gifs;
     } else {
-      throw Exception("Fallo la conexion");
+      throw Exception("Fallo la conexión");
     }
   }
 
@@ -46,7 +46,13 @@ class _apiState extends State<api>{
       home: Scaffold(
         appBar: AppBar(
           title: Text('Personajes de Rick y Morty', style: TextStyle(color: Colors.white),),
-          backgroundColor: Color.fromARGB(255, 44, 42, 42),
+          backgroundColor: Color.fromARGB(255, 0, 0, 0),
+          leading: IconButton( // Agregado el botón de regreso en el AppBar
+            icon: Icon(Icons.arrow_back, color: Colors.white),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
         ),
         body: Container(
           decoration: BoxDecoration(
@@ -75,13 +81,6 @@ class _apiState extends State<api>{
               }
             },
           ),
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            _regresar(context);
-          },
-          child: Icon(Icons.arrow_back),
-          backgroundColor: Color.fromARGB(255, 217, 2, 255), // Morado fuerte
         ),
       ),
     );

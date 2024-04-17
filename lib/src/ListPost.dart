@@ -19,8 +19,14 @@ class _ListPostState extends State<ListPost> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("List Post", style: TextStyle(color: Colors.white),),
-        backgroundColor: Color.fromARGB(255, 44, 42, 42),
+        title: Text("List Post", style: TextStyle(color: Colors.white)),
+        backgroundColor: Color.fromARGB(255, 0, 0, 0),
+        leading: IconButton( // Agregado el botón de regreso en el AppBar
+          icon: Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
       ),
       body: Container(
         decoration: BoxDecoration(

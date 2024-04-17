@@ -29,8 +29,14 @@ class _AgregarPostState extends State<AgregarPost> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Agregar Post",style: TextStyle(color: Colors.white),),
-        backgroundColor:  Color.fromARGB(255, 44, 42, 42),
+        title: Text("Agregar Post", style: TextStyle(color: Colors.white)),
+        backgroundColor: Color.fromARGB(255, 0, 0, 0),
+        leading: IconButton( // Agregado el botón de regreso en el AppBar
+          icon: Icon(Icons.arrow_back, color: Colors.white), // Cambiado el color del icono a blanco
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
       ),
       body: Container(
         decoration: BoxDecoration(
@@ -110,9 +116,9 @@ class _AgregarPostState extends State<AgregarPost> {
               SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () => agregarPost(context),
-                child: Text('Agregar',style: TextStyle(color: Colors.white)),
+                child: Text('Agregar',style: TextStyle(color: Colors.white),),
                 style: ElevatedButton.styleFrom(
-                  primary: Color.fromARGB(255, 7, 7, 7),
+                  primary: Colors.black,
                 ),
               ),
             ],
