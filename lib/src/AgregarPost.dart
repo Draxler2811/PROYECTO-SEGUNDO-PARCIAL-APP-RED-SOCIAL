@@ -22,7 +22,6 @@ class _AgregarPostState extends State<AgregarPost> {
 
     Post nuevoPost = Post(descripcion: descripcion, lugar: lugar, imagen: imagen);
 
-    // Enviar el nuevo post de vuelta a la pantalla anterior
     Navigator.pop(context, nuevoPost);
   }
 
@@ -30,68 +29,94 @@ class _AgregarPostState extends State<AgregarPost> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Agregar Post"),
-        backgroundColor: Colors.blueAccent,
+        title: Text("Agregar Post",style: TextStyle(color: Colors.white),),
+        backgroundColor:  Color.fromARGB(255, 44, 42, 42),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            SizedBox(height: 20),
-            Text(
-              'Post',
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-            ),
-            SizedBox(height: 20),
-            Text(
-              'Nombre:',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-            Text(
-              widget.nombreUsuario ?? '',
-              style: TextStyle(fontSize: 16),
-            ),
-            SizedBox(height: 20),
-            TextField(
-              controller: descripcionController,
-              decoration: InputDecoration(
-                labelText: 'Descripción',
-                border: OutlineInputBorder(),
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [Color(0xFF6F2180), Colors.black],
+          ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              SizedBox(height: 20),
+              Text(
+                'Post',
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
               ),
-            ),
-            SizedBox(height: 12),
-            TextField(
-              controller: lugarController,
-              decoration: InputDecoration(
-                labelText: 'Lugar',
-                border: OutlineInputBorder(),
+              SizedBox(height: 20),
+              Text(
+                'Nombre:',
+                textAlign: TextAlign.start,
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
               ),
-            ),
-            SizedBox(height: 12),
-            TextField(
-              controller: imagenController,
-              decoration: InputDecoration(
-                labelText: 'URL de la Imagen',
-                border: OutlineInputBorder(),
+              Text(
+                widget.nombreUsuario ?? '',
+                textAlign: TextAlign.start,
+                style: TextStyle(fontSize: 18, color: Colors.white),
               ),
-            ),
-            SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                ElevatedButton(
-                  onPressed: () => agregarPost(context),
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.blueAccent,
+              SizedBox(height: 20),
+              TextField(
+                controller: descripcionController,
+                decoration: InputDecoration(
+                  labelText: 'Descripción',
+                  labelStyle: TextStyle(color: Colors.white),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.blueAccent),
                   ),
-                  child: Icon(Icons.add),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.white),
+                  ),
                 ),
-              ],
-            ),
-          ],
+                style: TextStyle(color: Colors.white),
+              ),
+              SizedBox(height: 12),
+              TextField(
+                controller: lugarController,
+                decoration: InputDecoration(
+                  labelText: 'Lugar',
+                  labelStyle: TextStyle(color: Colors.white),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.blueAccent),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.white),
+                  ),
+                ),
+                style: TextStyle(color: Colors.white),
+              ),
+              SizedBox(height: 12),
+              TextField(
+                controller: imagenController,
+                decoration: InputDecoration(
+                  labelText: 'URL de la Imagen',
+                  labelStyle: TextStyle(color: Colors.white),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.blueAccent),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.white),
+                  ),
+                ),
+                style: TextStyle(color: Colors.white),
+              ),
+              SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: () => agregarPost(context),
+                child: Text('Agregar',style: TextStyle(color: Colors.white)),
+                style: ElevatedButton.styleFrom(
+                  primary: Color.fromARGB(255, 7, 7, 7),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

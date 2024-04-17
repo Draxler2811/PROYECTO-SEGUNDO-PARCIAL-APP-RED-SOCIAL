@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:redsocial/src/models/Morty.dart';
 import 'package:http/http.dart' as http;
@@ -46,33 +45,43 @@ class _apiState extends State<api>{
       title: 'Material App',
       home: Scaffold(
         appBar: AppBar(
-          title: Text('Personajes de Rick y Morty'),
-           backgroundColor: Colors.blueAccent,
+          title: Text('Personajes de Rick y Morty', style: TextStyle(color: Colors.white),),
+          backgroundColor: Color.fromARGB(255, 44, 42, 42),
         ),
-        body: FutureBuilder(
-          future: _listadoGifs,
-          builder: (context, snapshot) {
-            if(snapshot.connectionState == ConnectionState.waiting){
-              return Center(
-                child: CircularProgressIndicator(),
-              );
-            } else if(snapshot.hasError){
-              print(snapshot.error);
-              return Text("Error");
-            } else {
-              final data = snapshot.data!;
-              return GridView.count(
-                crossAxisCount: 2,
-                children: _listGifs(data),
-              );
-            }
-          },
+        body: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [Color(0xFF6F2180), Colors.black],
+            ),
+          ),
+          child: FutureBuilder(
+            future: _listadoGifs,
+            builder: (context, snapshot) {
+              if(snapshot.connectionState == ConnectionState.waiting){
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else if(snapshot.hasError){
+                print(snapshot.error);
+                return Text("Error");
+              } else {
+                final data = snapshot.data!;
+                return GridView.count(
+                  crossAxisCount: 2,
+                  children: _listGifs(data),
+                );
+              }
+            },
+          ),
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             _regresar(context);
           },
           child: Icon(Icons.arrow_back),
+          backgroundColor: Color.fromARGB(255, 217, 2, 255), // Morado fuerte
         ),
       ),
     );
