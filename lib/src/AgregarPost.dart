@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:redsocial/src/PostModel.dart';
 
 class AgregarPost extends StatefulWidget {
-   final String? nombreUsuario;
+  final String? nombreUsuario;
 
   const AgregarPost({Key? key, this.nombreUsuario}) : super(key: key);
 
@@ -37,32 +37,59 @@ class _AgregarPostState extends State<AgregarPost> {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisSize: MainAxisSize.max,
           children: [
             SizedBox(height: 20),
             Text(
-              widget.nombreUsuario ?? '',
+              'Post',
               textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 20),
+            Text(
+              'Nombre:',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+            Text(
+              widget.nombreUsuario ?? '',
+              style: TextStyle(fontSize: 16),
             ),
             SizedBox(height: 20),
             TextField(
               controller: descripcionController,
-              decoration: InputDecoration(labelText: 'Descripción'),
+              decoration: InputDecoration(
+                labelText: 'Descripción',
+                border: OutlineInputBorder(),
+              ),
             ),
             SizedBox(height: 12),
             TextField(
               controller: lugarController,
-              decoration: InputDecoration(labelText: 'Lugar'),
+              decoration: InputDecoration(
+                labelText: 'Lugar',
+                border: OutlineInputBorder(),
+              ),
             ),
             SizedBox(height: 12),
             TextField(
               controller: imagenController,
-              decoration: InputDecoration(labelText: 'URL de la Imagen'),
+              decoration: InputDecoration(
+                labelText: 'URL de la Imagen',
+                border: OutlineInputBorder(),
+              ),
             ),
             SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () => agregarPost(context),
-              child: Text('Agregar'),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(
+                  onPressed: () => agregarPost(context),
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.blueAccent,
+                  ),
+                  child: Icon(Icons.add),
+                ),
+              ],
             ),
           ],
         ),

@@ -87,25 +87,23 @@ class _ListPostState extends State<ListPost> {
                                   ),
                                 ),
                                 Positioned(
-                                    top:
-                                        150, // Ajusta la posición del botón de eliminar
-                                    right:
-                                        160, // Ajusta el botón de eliminar hacia la derecha
-                                    child: ElevatedButton(
-                                      onPressed: () {
-                                        setState(() {
-                                          posts.removeAt(index);
-                                        });
-                                      },
-                                      child: Text('Eliminar',
-                                          style: TextStyle(
-                                              color: Colors
-                                                  .white)), // Cambia el color del texto a blanco
-                                      style: ElevatedButton.styleFrom(
-                                        primary: Colors
-                                            .red, // Cambia el color de fondo a rojo
-                                      ),
-                                    )),
+                                  top: 150, // Ajusta la posición del botón de eliminar
+                                  right: 160, // Ajusta el botón de eliminar hacia la derecha
+                                  child: ElevatedButton(
+                                    onPressed: () {
+                                      setState(() {
+                                        posts.removeAt(index);
+                                      });
+                                    },
+                                    child: Text(
+                                      'Eliminar',
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                    style: ElevatedButton.styleFrom(
+                                      primary: Colors.red,
+                                    ),
+                                  ),
+                                ),
                               ],
                             ),
                           ),
@@ -116,7 +114,12 @@ class _ListPostState extends State<ListPost> {
                 ),
               )
             else
-              Text("No hay datos de publicación disponibles"),
+              Center(
+                child: Text(
+                  "No hay datos de publicación disponibles",
+                  style: TextStyle(fontSize: 18),
+                ),
+              ),
           ],
         ),
       ),
@@ -160,7 +163,10 @@ class _ListPostState extends State<ListPost> {
                   MaterialPageRoute(builder: (context) => api()),
                 );
               },
-              child: Icon(Icons.add),
+              child: Text(
+                "API",
+                style: TextStyle(fontSize: 18),
+              ),
               backgroundColor: Colors.yellow,
             ),
           ),
