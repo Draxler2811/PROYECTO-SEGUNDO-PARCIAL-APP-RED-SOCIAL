@@ -15,7 +15,7 @@ class LoginScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Login",
+          "TECBOOK",
           style: TextStyle(color: Colors.white),
         ),
         backgroundColor: const Color.fromARGB(255, 3, 3, 3),
@@ -32,7 +32,7 @@ class LoginScreen extends StatelessWidget {
           children: <Widget>[
             SizedBox(height: 8),
             Text(
-              "Bienvenido",
+              "WELCOME TO TECBOOK",
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 18,
@@ -44,7 +44,7 @@ class LoginScreen extends StatelessWidget {
             Align(
               alignment: Alignment.center,
               child: Text(
-                "Bienvenido a mi aplicación ProCalculator Omar Lozano",
+                "LOGIN",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 24,

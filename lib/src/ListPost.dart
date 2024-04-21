@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:redsocial/src/AgregarPost.dart';
-import 'package:redsocial/src/PostModel.dart';
 import 'package:redsocial/src/Api/api.dart';
+import 'package:redsocial/src/PostModel.dart';
 
 class ListPost extends StatefulWidget {
-  final String? nombreUsuario; // Parámetro para recibir el nombre del usuario
+  final String? nombreUsuario;
 
   const ListPost({Key? key, this.nombreUsuario}) : super(key: key);
 
@@ -19,9 +19,9 @@ class _ListPostState extends State<ListPost> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("List Post", style: TextStyle(color: Colors.white)),
+        title: Text("TECBOOK", style: TextStyle(color: Colors.white)),
         backgroundColor: Color.fromARGB(255, 0, 0, 0),
-        leading: IconButton( // Agregado el botón de regreso en el AppBar
+        leading: IconButton(
           icon: Icon(Icons.arrow_back, color: Colors.white),
           onPressed: () {
             Navigator.pop(context);
@@ -48,66 +48,82 @@ class _ListPostState extends State<ListPost> {
                     itemBuilder: (context, index) {
                       return Padding(
                         padding: EdgeInsets.symmetric(horizontal: 30, vertical: 8),
-                        child: Container(
+                        child: SizedBox(
                           width: double.infinity,
                           child: Card(
                             child: Padding(
-                              padding: const EdgeInsets.all(30.0),
-                              child: Stack(
+                              padding: const EdgeInsets.all(25.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  // Contenedor para la imagen
-                                  Container(
-                                    width: 200, // Ancho fijo para la imagen
-                                    height: 200, // Altura fija para la imagen
-                                    child: Image.network(
-                                      posts[index].imagen,
-                                      fit: BoxFit.cover, // Ajustar la imagen para cubrir el contenedor
-                                    ),
-                                  ),
-                                  Positioned(
-                                    top: 0,
-                                    right: 0,
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.end,
-                                      children: [
-                                        // Texto
-                                        Column(
+                                  Row(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Container(
+                                        width: 120, // Ajusta el ancho del contenedor
+                                        height: 100,
+                                        margin: EdgeInsets.only(right: 10), // Agrega un margen a la derecha
+                                        child: Image.network(
+                                          posts[index].imagen,
+                                          fit: BoxFit.cover,
+                                          loadingBuilder: (context, child, loadingProgress) {
+                                            if (loadingProgress == null) {
+                                              return child;
+                                            } else {
+                                              return CircularProgressIndicator();
+                                            }
+                                          },
+                                          errorBuilder: (context, error, stackTrace) {
+                                            return Text('Error al cargar la imagen');
+                                          },
+                                        ),
+                                      ),
+                                      // Contenedor para el texto
+                                      Expanded(
+                                        child: Column(
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
-                                            Text(
-                                              widget.nombreUsuario ?? '',
-                                              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                                            Center(
+                                              child: Text(
+                                                widget.nombreUsuario ?? '',
+                                                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                                              ),
                                             ),
-                                            SizedBox(height: 8),
-                                            Text(
-                                              posts[index].descripcion,
-                                              style: TextStyle(fontSize: 16),
+                                            SizedBox(height: 4),
+                                            Center(
+                                              child: Text(
+                                                posts[index].descripcion,
+                                                style: TextStyle(fontSize: 16),
+                                                textAlign: TextAlign.center,
+                                              ),
                                             ),
-                                            SizedBox(height: 8),
-                                            Text(
-                                              posts[index].lugar,
-                                              style: TextStyle(fontSize: 14, color: Colors.grey),
+                                            SizedBox(height: 4),
+                                            Center(
+                                              child: Text(
+                                                posts[index].lugar,
+                                                style: TextStyle(fontSize: 14, color: Colors.grey),
+                                              ),
                                             ),
                                           ],
                                         ),
-                                      ],
-                                    ),
+                                      ),
+                                    ],
                                   ),
-                                  Positioned(
-                                    top: 150, // Ajusta la posición del botón de eliminar
-                                    right: 160, // Ajusta el botón de eliminar hacia la derecha
-                                    child: ElevatedButton(
+                                  SizedBox(height: 8),
+                                  Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: TextButton(
                                       onPressed: () {
                                         setState(() {
                                           posts.removeAt(index);
                                         });
                                       },
                                       child: Text(
-                                        'Eliminar',
+                                        "Eliminar",
                                         style: TextStyle(color: Colors.white),
                                       ),
-                                      style: ElevatedButton.styleFrom(
-                                        primary: Colors.red,
+                                      style: ButtonStyle(
+                                        backgroundColor: MaterialStateProperty.all<Color>(Colors.red),
                                       ),
                                     ),
                                   ),
@@ -138,17 +154,14 @@ class _ListPostState extends State<ListPost> {
           Padding(
             padding: const EdgeInsets.only(
               right: 16.0,
-              bottom: 550.0, // Ajusta la posición del botón flotante
+              bottom: 550.0,
             ),
             child: FloatingActionButton(
               onPressed: () async {
-                // Navegar a la pantalla AgregarPost y esperar el resultado
                 final nuevoPost = await Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => AgregarPost(nombreUsuario: widget.nombreUsuario)),
                 );
-
-                // Agregar el nuevo post a la lista si no es nulo
                 if (nuevoPost != null) {
                   setState(() {
                     posts.add(nuevoPost);
@@ -162,7 +175,7 @@ class _ListPostState extends State<ListPost> {
           Padding(
             padding: const EdgeInsets.only(
               right: 150.0,
-              bottom: 16.0, // Ajusta la posición del nuevo botón flotante
+              bottom: 16.0,
             ),
             child: FloatingActionButton(
               onPressed: () {

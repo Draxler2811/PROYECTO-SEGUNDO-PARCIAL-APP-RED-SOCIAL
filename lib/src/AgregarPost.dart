@@ -15,24 +15,46 @@ class _AgregarPostState extends State<AgregarPost> {
   TextEditingController lugarController = TextEditingController();
   TextEditingController imagenController = TextEditingController();
 
-  void agregarPost(BuildContext context) {
-    String descripcion = descripcionController.text;
-    String lugar = lugarController.text;
-    String imagen = imagenController.text;
+ void agregarPost(BuildContext context) {
+  String descripcion = descripcionController.text;
+  String lugar = lugarController.text;
+  String imagen = imagenController.text;
 
+  // Verificar que los campos no estén vacíos
+  if (descripcion.isNotEmpty && lugar.isNotEmpty && imagen.isNotEmpty) {
     Post nuevoPost = Post(descripcion: descripcion, lugar: lugar, imagen: imagen);
-
     Navigator.pop(context, nuevoPost);
+  } else {
+    // Mostrar un diálogo de error o realizar alguna otra acción
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Error"),
+          content: Text("Por favor, completa todos los campos."),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text("Aceptar"),
+            ),
+          ],
+        );
+      },
+    );
   }
+}
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Agregar Post", style: TextStyle(color: Colors.white)),
+        title: Text("TECBOOK", style: TextStyle(color: Colors.white)),
         backgroundColor: Color.fromARGB(255, 0, 0, 0),
-        leading: IconButton( // Agregado el botón de regreso en el AppBar
-          icon: Icon(Icons.arrow_back, color: Colors.white), // Cambiado el color del icono a blanco
+        leading: IconButton( 
+          icon: Icon(Icons.arrow_back, color: Colors.white), 
           onPressed: () {
             Navigator.pop(context);
           },

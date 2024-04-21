@@ -86,22 +86,27 @@ class _apiState extends State<api>{
     );
   }
 
-  List<Widget> _listGifs(List<Morty> data){
-    List<Widget> gifs = [];
-    for(var gif in data){
-      gifs.add(Card(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Expanded(child: Image.network(gif.image, fit: BoxFit.fill)),
-            SizedBox(height: 8),
-            Text("Nombre: ${gif.name}", style: TextStyle(fontWeight: FontWeight.bold)),
-            Text("Estado: ${gif.status}"),
-            Text("Género: ${gif.gender}")
-          ]
+ List<Widget> _listGifs(List<Morty> data){
+  List<Widget> gifs = [];
+  for(var i = 0; i < data.length; i++){
+    gifs.add(
+      Hero(
+        tag: 'morty_hero_$i', // Cambiar la etiqueta para que sea única
+        child: Card(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Expanded(child: Image.network(data[i].image, fit: BoxFit.fill)),
+              SizedBox(height: 8),
+              Text("Nombre: ${data[i].name}", style: TextStyle(fontWeight: FontWeight.bold)),
+              Text("Estado: ${data[i].status}"),
+              Text("Género: ${data[i].gender}")
+            ]
+          ),
         ),
-      ));
-    }
-    return gifs;
+      ),
+    );
   }
+  return gifs;
+}
 }
